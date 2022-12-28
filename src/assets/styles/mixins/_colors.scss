@@ -1,0 +1,77 @@
+$color-prefix: --color-;
+
+// color
+@function cl($name, $opacity: false) {
+  @if $opacity {
+    $get_color: undefined;
+
+    @if (map-has-key($colors, #{unquote($name)})) {
+      $get_color: map-get($colors, #{unquote($name)});
+    } @else {
+      $theme_color: map-get($theme-colors, #{unquote($name)});
+      $get_color: map-get($colors, $theme_color);
+    }
+
+    $color: rgb(red($get_color), green($get_color), blue($get_color));
+
+    @return rgba($color, $opacity);
+  } @else {
+    @return var(#{$color-prefix}#{$name});
+  }
+}
+
+// color darken
+@function cl-darken($name, $amount) {
+  $get_color: undefined;
+
+  @if (map-has-key($colors, #{unquote($name)})) {
+    $get_color: map-get($colors, #{unquote($name)});
+  } @else {
+    $theme_color: map-get($theme-colors, #{unquote($name)});
+    $get_color: map-get($colors, $theme_color);
+  }
+
+  $color: rgb(red($get_color), green($get_color), blue($get_color));
+
+  @return darken($color, $amount);
+}
+
+// color lighten
+@function cl-lighten($name, $amount) {
+  $get_color: undefined;
+
+  @if (map-has-key($colors, #{unquote($name)})) {
+    $get_color: map-get($colors, #{unquote($name)});
+  } @else {
+    $theme_color: map-get($theme-colors, #{unquote($name)});
+    $get_color: map-get($colors, $theme_color);
+  }
+
+  $color: rgb(red($get_color), green($get_color), blue($get_color));
+
+  @return lighten($color, $amount);
+}
+
+:root {
+  @if $colors {
+    @if $theme-colors {
+      @each $name, $color in $theme-colors {
+        #{$color-prefix}#{$name}: var(#{$color-prefix}#{$color});
+      }
+    }
+
+    @each $name, $color in $colors {
+      #{$color-prefix}#{$name}: $color;
+    }
+  }
+}
+
+html {
+  &[data-theme='dark'] {
+    @if $theme-colors {
+      @each $name, $color in $theme-colors-dark {
+        #{$color-prefix}#{$name}: var(#{$color-prefix}#{$color});
+      }
+    }
+  }
+}

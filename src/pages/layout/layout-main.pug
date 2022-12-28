@@ -1,0 +1,21 @@
+-
+  const config = require('@root/config.json');
+  const env = htmlWebpackPlugin.options.env;
+
+include ../../components/mixins/icon
+
+<!DOCTYPE html>
+html(lang='ru' data-theme=config.theme_color)
+  head
+    meta(charset='UTF-8')
+    title=`${config.name} ${config.version_name} / v${config.version}`
+
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0')
+    meta(name='format-detection' content='telephone=no')
+
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+
+  block head

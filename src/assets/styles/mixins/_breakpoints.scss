@@ -1,0 +1,78 @@
+@function breakpoint-next($name, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @if not $n {
+    @error "breakpoint `#{$name}` not found in `#{$breakpoints}`";
+  }
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@function breakpoint-min($name) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min / $ratio, null);
+}
+
+@function breakpoint-max($name) {
+  $max: map-get($breakpoints, $name);
+  @return if($max and $max > 0, $max / $ratio - 0.02, null);
+}
+
+@mixin breakpoint-to($name) {
+  $min: breakpoint-min($name);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin breakpoint-from($name) {
+  $max: breakpoint-max($name);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($lower, $upper) {
+  $min: breakpoint-min($lower);
+  $max: breakpoint-max($upper);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include breakpoint-to($lower) {
+      @content;
+    }
+  } @else if $min == null {
+    @include breakpoint-from($upper) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpoint-only($name) {
+  $min: breakpoint-min($name);
+  $next: breakpoint-next($name);
+  $max: breakpoint-max($next);
+
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $max == null {
+    @include breakpoint-to($name) {
+      @content;
+    }
+  } @else if $min == null {
+    @include breakpoint-from($next) {
+      @content;
+    }
+  }
+}

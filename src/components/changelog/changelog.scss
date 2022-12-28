@@ -1,0 +1,38 @@
+.changelog {
+  margin-top: 5rem;
+
+  h1,
+  h2,
+  h3 {
+    margin: 1rem 0 2rem;
+  }
+
+  hr {
+    margin: 2rem 0 3.5rem;
+  }
+
+  ul {
+    margin: 1rem 0 2rem;
+    padding-left: 2em;
+    list-style-type: inherit;
+
+    li {
+      &:not(:first-child) {
+        margin-top: 0.25em;
+      }
+    }
+  }
+
+  p {
+    margin-bottom: 1.6rem;
+  }
+
+  code {
+    margin: 0;
+    padding: 0.2rem 0.4rem;
+    font-size: 85%;
+    font-family: monospace, monospace;
+    background-color: cl('grey', 0.05);
+    border-radius: 0.6rem;
+  }
+}

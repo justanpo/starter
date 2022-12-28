@@ -1,0 +1,95 @@
+// Animations
+$animation-default: 0.4s ease !default;
+
+// Colors
+/* prettier-ignore */
+$colors: (
+  'grey':       #708090,
+  'silver':     #d9d9d9,
+  'salmon':     #fa8072,
+  'black':      #000000,
+  'white':      #ffffff,
+  'whitesmoke': #f4f4f5,
+  'red':        #c7254e,
+);
+
+// Theme colors
+/* prettier-ignore */
+$theme-colors: (
+  'primary':    'salmon',
+  'border':     'silver',
+  'text':       'grey',
+  'text-head':  'black',
+  'body-bg':    'whitesmoke',
+  'bw':         'black',
+  'wb':         'white',
+);
+
+/* prettier-ignore */
+$theme-colors-dark: (
+  'primary':    'salmon',
+  'border':     'grey',
+  'text':       'white',
+  'text-head':  'white',
+  'body-bg':    'black',
+  'bw':         'white',
+  'wb':         'black',
+);
+
+// Breakpoints
+$breakpoints: (
+  xs: 0,
+  sm: 57.6rem,
+  md: 76.8rem,
+  lg: 99.2rem,
+  xl: 120rem,
+  xxl: 140rem,
+) !default;
+
+$container-default: 'xl';
+$main-screen-indent: 1.5rem;
+$ratio: 1.6;
+
+// rfs
+$rfs-breakpoint: map-get($breakpoints, $container-default);
+$rfs-rem-value: 10;
+
+// heading size
+$font-sizes: (
+  1: 4rem,
+  2: 3rem,
+  3: 2rem,
+  4: 1.5rem,
+) !default;
+
+// heading properties
+$heading-properties: (
+  margin-top: 0,
+  margin-bottom: 0.5rem,
+  color: 'text-head',
+  line-height: 1.2,
+) !default;
+
+// Fonts
+$base-font: 'DINPro';
+
+// init fonts
+$fonts: (
+  $base-font: (
+    formats: ttf eot woff,
+    weights: (
+      'Bold': 700 i,
+      '': 400,
+    ),
+  ),
+  RoubleSans: (
+    formats: ttf eot woff,
+    weights: (
+      '': 400,
+    ),
+  ),
+);
+
+.rouble {
+  font-family: 'RoubleSans';
+}

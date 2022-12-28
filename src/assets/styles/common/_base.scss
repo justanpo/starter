@@ -1,0 +1,73 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  color: cl(text);
+  font-size: 1.6rem;
+  line-height: 1.3;
+  direction: ltr;
+  background: white;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  -osx-font-smoothing: grayscale;
+
+  @if $base-font {
+    font-family: $base-font, sans-serif, Helvetica;
+  }
+
+  &.noscroll {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+a {
+  cursor: pointer;
+  transition: opacity $animation-default;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+%container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $main-screen-indent;
+  padding-left: $main-screen-indent;
+}
+
+.container {
+  @extend %container;
+
+  max-width: map-get($breakpoints, $container-default);
+}
+
+@each $key, $val in $breakpoints {
+  .container-#{$key} {
+    @extend %container;
+
+    max-width: map-get($breakpoints, $key);
+  }
+}
+
+::selection {
+  background: cl(primary, 0.5);
+}
+
+::-moz-selection {
+  background: cl(primary, 0.5);
+}
+
+::-webkit-selection {
+  background: cl(primary, 0.5);
+}
+
+@if $theme-colors {
+  hr {
+    border-color: cl('bw');
+  }
+}

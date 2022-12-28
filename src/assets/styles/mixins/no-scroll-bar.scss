@@ -1,0 +1,22 @@
+@mixin no-scroll-bar() {
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+}

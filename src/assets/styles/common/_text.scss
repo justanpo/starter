@@ -1,0 +1,34 @@
+$heading-list: null;
+
+// font size for heading
+@each $count, $size in $font-sizes {
+  h#{$count},
+  .h#{$count} {
+    @include font-size($size);
+  }
+
+  $heading-list: append($heading-list, 'h' + $count + ', .h' + $count, comma);
+}
+
+// properties for heading
+@if $heading-list {
+  #{$heading-list} {
+    @each $property, $value in $heading-properties {
+      $val: if($property == 'color', cl($value), $value);
+
+      #{$property}: $val;
+    }
+  }
+}
+
+p {
+  margin: 0 0 0.57em;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}

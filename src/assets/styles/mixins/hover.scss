@@ -1,0 +1,13 @@
+@mixin hover() {
+  @include breakpoint-from('lg') {
+    &:active {
+      @content;
+    }
+  }
+
+  @include breakpoint-to('lg') {
+    &:hover {
+      @content;
+    }
+  }
+}

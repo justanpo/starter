@@ -1,0 +1,78 @@
+// string Replace
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// check style italic
+
+@function check-italic($list) {
+  @return if(length($list) > 1 and nth($list, length($list)) == i, true, false);
+}
+
+// font face
+
+@each $name, $params in $fonts {
+  @if map-has-key($params, 'weights') {
+    $weights: map-get($params, 'weights');
+    $exts: map-get($params, 'formats');
+    $path: '../fonts/#{$name}/#{$name}';
+    $style: null;
+    $src: null;
+    $srcItalic: null;
+
+    $extmods: (
+      eot: '?#iefix',
+      svg: '#' + str-replace($name, ' ', '_'),
+    );
+
+    $formats: (
+      ttf: 'truetype',
+      otf: 'opentype',
+      eot: 'embedded-opentype',
+    );
+
+    @each $key, $value in $weights {
+      $font: if($key != '', $name + '-' + $key, $name + $key);
+      $font_path: if($key != '', $path + '-' + $key, $path + $key);
+
+      @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($font_path + '.' + $extmod)) format(quote($format)), comma);
+        @if (check-italic($value)) {
+          $srcItalic: append(
+            $srcItalic,
+            url(quote($font_path + 'Italic.' + $extmod)) format(quote($format)),
+            comma
+          );
+        }
+      }
+
+      @font-face {
+        font-weight: nth($value, 1);
+        font-family: quote($name);
+        font-style: normal;
+        src: $src;
+      }
+
+      @if (check-italic($value)) {
+        @font-face {
+          font-weight: nth($value, 1);
+          font-family: quote($name);
+          font-style: italic;
+          src: $srcItalic;
+        }
+      }
+
+      $src: null; // reset var
+    }
+  }
+}

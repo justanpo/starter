@@ -1,0 +1,32 @@
+@mixin transition($transitions...) {
+  $unfoldedTransitions: ();
+
+  @each $transition in $transitions {
+    $unfoldedTransitions: append($unfoldedTransitions, unfoldTransition($transition), comma);
+  }
+
+  transition: $unfoldedTransitions;
+}
+
+@function unfoldTransition ($transition) {
+  $property: all;
+  $params: $animation-default;
+  $delay: null;
+  $defaultProperties: ($property, $params, $delay);
+
+  $unfoldedTransition: ();
+
+  @for $i from 1 through length($defaultProperties) {
+    $p: null;
+
+    @if $i <= length($transition) {
+      $p: nth($transition, $i)
+    } @else {
+      $p: nth($defaultProperties, $i)
+    }
+
+    $unfoldedTransition: append($unfoldedTransition, $p);
+  }
+
+  @return $unfoldedTransition;
+}

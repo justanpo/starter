@@ -1,0 +1,39 @@
+.btn {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.6em 1.5em 0.8em;
+  overflow: hidden;
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  white-space: nowrap;
+  text-align: center;
+  background-color: cl(primary);
+  border: 0.2rem solid cl(primary);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  user-select: none;
+
+  @include transition(color, background-color, border-color);
+
+  @include hover() {
+    color: white;
+    background-color: cl-lighten(primary, 5);
+    border-color: cl-lighten(primary, 5);
+  }
+
+  &_wide {
+    width: 100%;
+  }
+
+  &_scd {
+    color: cl(primary);
+    background-color: transparent;
+
+    @include hover() {
+      color: white;
+      background-color: cl(primary);
+    }
+  }
+}
